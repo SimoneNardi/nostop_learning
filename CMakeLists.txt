@@ -10,7 +10,9 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(LEMON REQUIRED)
+find_package(IDSBaseMath REQUIRED)
+find_package(Utility REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -80,7 +82,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
    INCLUDE_DIRS include
 #  LIBRARIES nostop_learning
-#  CATKIN_DEPENDS roscpp
+   CATKIN_DEPENDS roscpp
 #  DEPENDS system_lib
 )
 
@@ -125,7 +127,7 @@ set(Learning_SOURCES
 )
 
 ## Declare a cpp library
-add_library(Learning STATIC ${Learning_SOURCES})
+add_library(Learning STATIC ${Learning_SOURCES} IDSBaseMath Utility Lemon)
 
 ## Declare a cpp executable
 # add_executable(nostop_learning_node src/nostop_learning_node.cpp)

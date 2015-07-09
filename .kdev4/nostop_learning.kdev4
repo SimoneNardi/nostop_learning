@@ -12,7 +12,7 @@ Build Type=Debug
 CMake Binary=file:///usr/bin/cmake
 Environment Profile=
 Extra Arguments=-DCATKIN_DEVEL_PREFIX=../devel -DCMAKE_INSTALL_PREFIX=../install
-Install Directory=
+Install Directory=file:///home/simone/catkin_ws/install
 
 [Project]
 VersionControlSupport=kdevgit
