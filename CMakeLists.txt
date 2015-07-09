@@ -78,7 +78,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+   INCLUDE_DIRS include
 #  LIBRARIES nostop_learning
 #  CATKIN_DEPENDS roscpp
 #  DEPENDS system_lib
@@ -95,10 +95,37 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+include_directories(
+${IDSBaseMath_SOURCE_DIR}/Sources
+${Utility_SOURCE_DIR}/Sources
+${LEMON_SOURCE_DIR}
+)
+
+set(Learning_SOURCES
+	src/agent.cpp
+	src/agentTrajectory.cpp
+	src/probability.cpp
+	src/area.cpp
+	src/discretizedArea.cpp
+	src/guard.cpp
+	src/learningAlgorithm.cpp
+	src/shape2D.cpp
+	src/structuredArea.cpp
+	src/unStructuredArea.cpp
+	src/world.cpp
+	src/line2D.cpp
+	src/coverageAlgorithm.cpp
+	src/DISLAlgorithm.cpp
+	src/PIPIPAlgorithm.cpp
+	src/ParetoEfficientAlgorithm.cpp
+	src/CoarseCorrelatedAlgorithm.cpp
+	src/LearningWorld.cpp
+	src/polygon.cpp
+	src/circle.cpp
+)
+
 ## Declare a cpp library
-# add_library(nostop_learning
-#   src/${PROJECT_NAME}/nostop_learning.cpp
-# )
+add_library(Learning STATIC ${Learning_SOURCES})
 
 ## Declare a cpp executable
 # add_executable(nostop_learning_node src/nostop_learning_node.cpp)

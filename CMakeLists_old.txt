@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 2.6)
+project(Learning)
+
+set(Learning_SOURCES
+	Sources/agent.cpp
+	Sources/agentTrajectory.cpp
+	Sources/probability.cpp
+	Sources/area.cpp
+	Sources/discretizedArea.cpp
+	Sources/guard.cpp
+	Sources/learningAlgorithm.cpp
+	Sources/shape2D.cpp
+	Sources/structuredArea.cpp
+	Sources/unStructuredArea.cpp
+	Sources/world.cpp
+	Sources/line2D.cpp
+	Sources/coverageAlgorithm.cpp
+	Sources/DISLAlgorithm.cpp
+	Sources/PIPIPAlgorithm.cpp
+	Sources/ParetoEfficientAlgorithm.cpp
+	Sources/CoarseCorrelatedAlgorithm.cpp
+	Sources/LearningWorld.cpp
+	Sources/polygon.cpp
+	Sources/circle.cpp
+)
+
+include_directories(
+${IDSBaseMath_SOURCE_DIR}/Sources
+${Utility_SOURCE_DIR}/Sources
+${LEMON_SOURCE_DIR}
+)
+
+#target_link_libraries(Learning PRIVATE IDSBaseMath lemon Utility)
+
+add_library(Learning STATIC ${Learning_SOURCES})
+

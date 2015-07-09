@@ -1,0 +1,21 @@
+#include "unStructuredArea.h"
+
+using namespace Robotics::GameTheory;
+
+//////////////////////////////////////////////////////////////////////////
+std::shared_ptr<DiscretizedArea> UnStructuredArea::discretize()
+{
+	return nullptr;
+}
+
+//////////////////////////////////////////////////////////////////////////
+IDSReal2D UnStructuredArea::randomPosition() const
+{
+	return IDSReal2D();
+}
+
+//////////////////////////////////////////////////////////////////////////
+double UnStructuredArea::getDistance() const
+{
+	return 0.;
+}
