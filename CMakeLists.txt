@@ -11,8 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 find_package(LEMON REQUIRED)
-find_package(IDSBaseMath REQUIRED)
-find_package(Utility REQUIRED)
+find_library (Utility REQUIRED)
+find_library (IDSBaseMath REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
