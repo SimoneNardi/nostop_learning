@@ -10,10 +10,10 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   
-  <build_depend>BaseMath</build_depend>
+  <build_depend>base_math</build_depend>
   <build_depend>roscpp</build_depend>
   
-  <run_depend>BaseMath</run_depend>
+  <run_depend>base_math</run_depend>
   <run_depend>roscpp</run_depend>
 
 

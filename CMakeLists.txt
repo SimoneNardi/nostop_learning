@@ -14,7 +14,7 @@ else()
     message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
-find_package(catkin REQUIRED roscpp BaseMath)
+find_package(catkin REQUIRED roscpp base_math)
 
 ###################################
 ## catkin specific configuration ##
@@ -22,7 +22,7 @@ find_package(catkin REQUIRED roscpp BaseMath)
 catkin_package(
   INCLUDE_DIRS include/${PROJECT_NAME}/
   LIBRARIES ${PROJECT_NAME}
-  DEPENDS BaseMath
+  DEPENDS base_math
 )
 
 ###########
@@ -33,6 +33,7 @@ include_directories(include/${PROJECT_NAME}/ ${catkin_INCLUDE_DIRS})
 link_directories(${catkin_LIBRARY_DIRS})
 include_directories(src/)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
+include_directories(${CMAKE_INSTALL_PREFIX}/include) # this line is to find lemon include files.
 
 set(Learning_SOURCES
 	src/agent.cpp
@@ -60,7 +61,7 @@ set(Learning_SOURCES
 ## Declare a cpp library
 add_library(${PROJECT_NAME} SHARED ${Learning_SOURCES})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} lemon)
-add_dependencies(${PROJECT_NAME} nostop_learning_gencpp lemon)
+add_dependencies(${PROJECT_NAME} nostop_learning_gencpp base_math lemon)
 
 #############
 ## Install ##
@@ -75,11 +76,4 @@ install(TARGETS ${PROJECT_NAME}
 #         ARCHIVE DESTINATION "${CATKIN_PACKAGE_BIN_DESTINATION}" COMPONENT lib
 #         RUNTIME DESTINATION "${CATKIN_PACKAGE_BIN_DESTINATION}" COMPONENT bin
          LIBRARY DESTINATION "${CATKIN_PACKAGE_LIB_DESTINATION}" COMPONENT shlib
-)
-
-add_custom_command(TARGET ${PROJECT_NAME}
-    POST_BUILD
-    COMMAND echo 'Installing lemon library...'
-    COMMAND make install
-    WORKING_DIRECTORY ${CATKIN_PACKAGE_BIN_DESTINATION}/../../
 )
