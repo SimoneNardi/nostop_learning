@@ -53,13 +53,6 @@ void Agent::setNextPosition(AgentPosition const& pos)
 			}
 			
 			//////////////////////////////////////////////////////////////////////////
-			AgentPosition Agent::getPreviousPosition() const 
-			{
-			  Lock l_lock(m_mutex);
-			  return m_previousPosition;
-			}
-			
-			//////////////////////////////////////////////////////////////////////////
 			int Agent::getID() const 
 			{
 			  Lock l_lock(m_mutex);

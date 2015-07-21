@@ -123,8 +123,6 @@ namespace Robotics
 			/// Agent Identifier
 			int m_id;
 
-			AgentPosition m_previousPosition;
-			
 			AgentPosition m_currentPosition;
 
 			AgentPosition m_nextPosition;
@@ -148,9 +146,6 @@ namespace Robotics
 			/// Get the position of the agent.
 			AgentPosition getCurrentPosition() const;
 			
-			/// Get the position of the agent.
-			AgentPosition getPreviousPosition() const;
-
 			/// Set Current Position
 			void setCurrentPosition(AgentPosition const& _pos);
 
