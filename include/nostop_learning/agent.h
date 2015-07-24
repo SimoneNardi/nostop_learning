@@ -10,9 +10,9 @@
 #include <vector>
 #include <memory>
 
-#include "IDSReal2D.h"
 #include "shape2D.h"
 
+#include "IDSReal2D.h"
 #include "Threads.h"
 
 namespace Robotics 
