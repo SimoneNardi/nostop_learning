@@ -1,7 +1,9 @@
 #pragma once
 
 #include "IDSReal2D.h"
+
 #include "shape2D.h"
+
 #include <vector>
 
 namespace Robotics
