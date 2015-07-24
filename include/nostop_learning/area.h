@@ -8,7 +8,6 @@
 #pragma once
 
 #include "shape2D.h"
-
 #include "IDSBox.h"
 
 #include <memory>
