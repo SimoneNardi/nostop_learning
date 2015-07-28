@@ -9,7 +9,7 @@
 
 #include <memory>
 #include <set>
-
+#include <vector>
 #include <thread>
 #include <mutex>
 
@@ -73,6 +73,15 @@ namespace Robotics
 
 			/// Get World Reference
 			std::shared_ptr<World> getWorld() const;
+			
+			///
+			void updateMonitor(std::vector<int8_t> const& monitorData_);
+			
+			///
+			void updateNeighbours(std::vector<int8_t> const& neighboursData_);
+			
+			///
+			void forwardOneStep();
 
 		protected:
 			/// Update guard position

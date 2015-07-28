@@ -1,4 +1,4 @@
-#include "LearningWorld.h"
+#include "learningWorld.h"
 #include "agent.h"
 #include "discretizedArea.h"
 #include "world.h"
@@ -169,4 +169,22 @@ std::shared_ptr<LearningAlgorithm> LearningWorld::getLearning() const
 std::shared_ptr<World> LearningWorld::getWorld() const
 {
 	return m_world;
+}
+
+///
+void LearningWorld::updateMonitor(std::vector<int8_t> const& monitorData_)
+{
+  // TODO
+}
+
+///
+void LearningWorld::updateNeighbours(std::vector<int8_t> const& neighboursData_)
+{
+  // TODO
+}
+
+///
+void LearningWorld::forwardOneStep()
+{
+  // TODO
 }

@@ -53,7 +53,7 @@ set(Learning_SOURCES
 	src/PIPIPAlgorithm.cpp
 	src/ParetoEfficientAlgorithm.cpp
 	src/CoarseCorrelatedAlgorithm.cpp
-	src/LearningWorld.cpp
+	src/learningWorld.cpp
 	src/polygon.cpp
 	src/circle.cpp
 )
