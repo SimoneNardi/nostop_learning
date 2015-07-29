@@ -20,7 +20,7 @@ DISLAlgorithm::DISLAlgorithm(std::shared_ptr<DiscretizedArea> _space)
 {}
 
 //////////////////////////////////////////////////////////////////////////
-void DISLAlgorithm::update(std::shared_ptr<Guard> _agent)
+void DISLAlgorithm::updateWithoutMoving(std::shared_ptr<Guard> _agent)
 {
 	if(!_agent->isRunning())
 		//	Inizia una nuova traiettoria (sperimentale o no!)
@@ -41,9 +41,6 @@ void DISLAlgorithm::update(std::shared_ptr<Guard> _agent)
 	}
 
 	_agent->selectNextAction(m_space);
-
-	//	ogni agente guardia muove verso la nuova posizione
-	_agent->moveToNextPosition();
 
 	return;
 }

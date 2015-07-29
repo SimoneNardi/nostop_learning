@@ -31,7 +31,7 @@ double PIPIPAlgorithm::computeDeltaMemoryBenefit(std::shared_ptr<Guard> _agent)
 }
 
 //////////////////////////////////////////////////////////////////////////
-void PIPIPAlgorithm::update(std::shared_ptr<Guard> _agent)
+void PIPIPAlgorithm::updateWithoutMoving(std::shared_ptr<Guard> _agent)
 {
 	if(!_agent->isRunning())
 		//	Inizia una nuova traiettoria (sperimentale o no!)
@@ -83,9 +83,6 @@ void PIPIPAlgorithm::update(std::shared_ptr<Guard> _agent)
 	}
 
 	_agent->selectNextAction(m_space);
-
-	//	ogni agente guardia muove verso la nuova posizione
-	_agent->moveToNextPosition();
 
 	return;
 }

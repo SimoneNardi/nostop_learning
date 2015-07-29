@@ -134,6 +134,13 @@ void LearningAlgorithm::compute(std::shared_ptr<Guard> _agent)
 }
 
 //////////////////////////////////////////////////////////////////////////
+void LearningAlgorithm::update(std::shared_ptr<Guard> _agent)
+{
+	this->updateWithoutMoving(_agent);
+	_agent->moveToNextPosition();
+}
+
+//////////////////////////////////////////////////////////////////////////
 void LearningAlgorithm::updateCounterOfVisibleSquare( std::shared_ptr<Guard> _agent )
 {
 	std::set<SquarePtr> l_visible = _agent->getVisibleSquares(m_space);

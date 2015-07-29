@@ -104,7 +104,10 @@ bool LearningWorld::agentUpdate()
 bool LearningWorld::evaluateScreenshot()
 {
 	++m_count;
+	m_learning->resetCounter();
+	
 	m_learning->updateCounterOfVisibleSquare();
+	
 	return true;
 }
 
@@ -172,19 +175,91 @@ std::shared_ptr<World> LearningWorld::getWorld() const
 }
 
 ///
+void LearningWorld::getEnergyScreenShot(std::vector<int8_t> & sinkData_)
+{
+    auto l_lattice = m_world->getSpace()->getLattice();
+  sinkData_.resize(l_lattice.size());
+  for(auto i = 0; i < sinkData_.size(); ++i)
+  {
+    sinkData_[i] = int8_t(l_lattice[i]->getEnergyValue());
+  }
+}
+
+///
+void LearningWorld::updateEnergy(std::vector<int8_t> const& sinkData_)
+{
+  auto l_lattice = m_world->getSpace()->getLattice();
+  for(auto i = 0; i < l_lattice.size(); ++i)
+  {
+    l_lattice[i]->setEnergyValue(sinkData_[i]);
+  }
+}
+
+///
+void LearningWorld::getMonitorScreenShot(std::vector<int8_t> & monitorData_)
+{
+    auto l_lattice = m_world->getSpace()->getLattice();
+  monitorData_.resize(l_lattice.size());
+  for(auto i = 0; i < monitorData_.size(); ++i)
+  {
+    monitorData_[i] = int8_t(l_lattice[i]->getThiefValue());
+  }
+}
+
+///
 void LearningWorld::updateMonitor(std::vector<int8_t> const& monitorData_)
 {
-  // TODO
+  auto l_lattice = m_world->getSpace()->getLattice();
+  for(auto i = 0; i < l_lattice.size(); ++i)
+  {
+    l_lattice[i]->setThiefValue(monitorData_[i]);
+  }
+}
+
+///
+void LearningWorld::getNeighboursScreeShot(std::vector<int8_t> & neighboursData_)
+{
+  auto l_lattice = m_world->getSpace()->getLattice();
+  neighboursData_.resize(l_lattice.size());
+  for(auto i = 0; i < l_lattice.size(); ++i)
+  {
+    neighboursData_[i] = int8_t(l_lattice[i]->getTheNumberOfAgent());
+  }
 }
 
 ///
 void LearningWorld::updateNeighbours(std::vector<int8_t> const& neighboursData_)
 {
-  // TODO
+  auto l_lattice = m_world->getSpace()->getLattice();
+  for(auto i = 0; i < l_lattice.size(); ++i)
+  {
+    l_lattice[i]->setTheNumberOfAgent(neighboursData_[i]);
+  }
 }
 
 ///
-void LearningWorld::forwardOneStep()
+bool LearningWorld::forwardOneStep()
 {
-  // TODO
+	// Monitor has been already updated and Neighbours are already computed:
+	// so everything that we need to do is compute benefit of guards and select next action.
+	double l_rate = m_learning->computeExplorationRate();
+	if(l_rate < 1.e-5)
+	  // In this case, the algorithm is considered terminated.
+	  return false;
+
+	//	COMPUTE: Compute Benefit
+	auto l_guards = m_world->getGuards();
+	for(auto it = l_guards.begin(); it!= l_guards.end(); ++it)
+	{
+		//	ogni agente guardia calcola la prima utilità:
+		m_learning->compute(*it);
+	}
+	
+	//	UPDATE: Save current action and Select next position:
+	for(auto it = l_guards.begin(); it!= l_guards.end(); ++it)
+	{
+		m_learning->updateWithoutMoving(*it);
+	}
+
+	return true;
 }

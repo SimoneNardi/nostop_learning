@@ -82,7 +82,8 @@ namespace Robotics
 
 			//////////////////////////////////////////////////////////////////////////
 
-			virtual void update(std::shared_ptr<Guard> _agent) = 0;
+			void update(std::shared_ptr<Guard> _agent);
+			virtual	void updateWithoutMoving(std::shared_ptr<Guard> _agent) = 0;
 
 			virtual void communicate(std::shared_ptr<Guard> _agent);
 

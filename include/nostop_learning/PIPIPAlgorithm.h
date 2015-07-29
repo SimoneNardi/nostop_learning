@@ -33,7 +33,7 @@ namespace Robotics
 			PIPIPAlgorithm(std::shared_ptr<DiscretizedArea> _space);
 
 		protected:
-			virtual void update(std::shared_ptr<Guard> _agent);
+			virtual void updateWithoutMoving(std::shared_ptr<Guard> _agent);
 
 			double computeIrrationalRate();
 

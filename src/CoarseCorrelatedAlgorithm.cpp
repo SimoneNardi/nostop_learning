@@ -19,7 +19,7 @@ CoarseCorrelatedAlgorithm::CoarseCorrelatedAlgorithm(std::shared_ptr<Discretized
 {}
 
 //////////////////////////////////////////////////////////////////////////
-void CoarseCorrelatedAlgorithm::update(std::shared_ptr<Guard> _agent)
+void CoarseCorrelatedAlgorithm::updateWithoutMoving(std::shared_ptr<Guard> _agent)
 {
 	if(!_agent->isRunning())
 		//	Inizia una nuova traiettoria (sperimentale o no!)
@@ -57,9 +57,6 @@ void CoarseCorrelatedAlgorithm::update(std::shared_ptr<Guard> _agent)
 	}
 
 	_agent->selectNextAction(m_space);
-
-	//	ogni agente guardia muove verso la nuova posizione
-	_agent->moveToNextPosition();
 
 	return;
 }

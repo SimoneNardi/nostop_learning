@@ -93,12 +93,13 @@ namespace Robotics
 			inline void setValid(bool valid);
 
 			inline int getTheNumberOfAgent() const {return m_counter;}
+			inline int setTheNumberOfAgent(int num_) {m_counter=num_;}
 
 			inline double getThiefValue() const {return m_values.size() > 0 ? m_values.at(0) : 0;}
-			inline void setThiefValue(double _value);
+			void setThiefValue(double _value);
 
 			inline double getEnergyValue() const {return m_values.size() > 1 ? m_values.at(1) : 0;}
-			inline void setEnergyValue(double _value);
+			void setEnergyValue(double _value);
 
 			//Square() : m_valid(true), m_counter(0), m_value(0.), m_old_value(0.) {}
 			Square(std::shared_ptr<lemon::ListGraph> _graph);
