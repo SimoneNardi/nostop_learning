@@ -5,7 +5,7 @@
 #include "polygon.h"
 #include "line2D.h"
 
-#include "IDSReal2D.h"
+#include "Real2D.h"
 
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -19,7 +19,7 @@ std::set<std::shared_ptr<Shape2D>> createRandomObstacles()
 }
 
 //////////////////////////////////////////////////////////////////////////
-StructuredArea::StructuredArea(std::vector<IDSReal2D> const& points) : m_external(nullptr)
+StructuredArea::StructuredArea(std::vector<Real2D> const& points) : m_external(nullptr)
 {
 	m_external = std::make_shared<Polygon>(points);
 	m_obstacles = createRandomObstacles();
@@ -36,23 +36,23 @@ std::shared_ptr<DiscretizedArea> StructuredArea::discretize()
 const int N_MAX = 15;
 
 //////////////////////////////////////////////////////////////////////////
-IDSReal2D StructuredArea::randomPosition() const
+Real2D StructuredArea::randomPosition() const
 {
 	/// Compute Random Position:
 	srand ( (unsigned int) time(NULL) );
 
-	IDSReal2D l_point;
+	Real2D l_point;
 	int k = 0;
 	do
 	{
 		int xSecret = rand() % DISCRETIZATION_COL;
 		int ySecret = rand() % DISCRETIZATION_ROW;
 
-		IDSBox l_box = m_external->getBoundingBox();
-		IDSReal2D l_bottomLeft = l_box.corner(0);
-		IDSReal2D	l_bottomRight = l_box.corner(1);
-		IDSReal2D	l_topLeft = l_box.corner(2);
-		IDSReal2D	l_topRight = l_box.corner(3);
+		Box l_box = m_external->getBoundingBox();
+		Real2D l_bottomLeft = l_box.corner(0);
+		Real2D	l_bottomRight = l_box.corner(1);
+		Real2D	l_topLeft = l_box.corner(2);
+		Real2D	l_topRight = l_box.corner(3);
 
 		double l_xdist = l_bottomLeft.distance(l_bottomRight);
 		double l_ydist = l_bottomLeft.distance(l_topLeft);
@@ -63,8 +63,8 @@ IDSReal2D StructuredArea::randomPosition() const
 		Line2D l_xlineBottom (l_bottomLeft, l_bottomRight);
 		Line2D l_xlineTop (l_topLeft, l_topRight);
 
-		IDSReal2D l_bottom = l_xlineBottom.pointFromOrigin( l_xstep * double(xSecret) );
-		IDSReal2D l_top = l_xlineTop.pointFromOrigin( l_xstep * double(xSecret) );
+		Real2D l_bottom = l_xlineBottom.pointFromOrigin( l_xstep * double(xSecret) );
+		Real2D l_top = l_xlineTop.pointFromOrigin( l_xstep * double(xSecret) );
 
 		Line2D l_yline (l_bottom,l_top);
 		l_point = l_yline.pointFromOrigin( l_ystep * double(ySecret) );
@@ -76,7 +76,7 @@ IDSReal2D StructuredArea::randomPosition() const
 }
 
 //////////////////////////////////////////////////////////////////////////
-bool StructuredArea::isInside( IDSBox const& _box) const
+bool StructuredArea::isInside( Box const& _box) const
 {
 	bool l_inside = false;
 	for(int i = 0; i < 4; ++i)
@@ -120,7 +120,7 @@ bool StructuredArea::isInside( IDSBox const& _box) const
 }
 
 //////////////////////////////////////////////////////////////////////////
-IDSBox StructuredArea::getBoundingBox() const
+Box StructuredArea::getBoundingBox() const
 {
 	return m_external->getBoundingBox();
 }

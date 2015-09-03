@@ -6,7 +6,7 @@
 #include "discretizedArea.h"
 #include "coverageUtility.h"
 
-#include "IDSReal2D.h"
+#include "Real2D.h"
 
 #include <fstream>
 
@@ -21,7 +21,7 @@ World::World(std::set< std::shared_ptr<Agent> > _agent, std::shared_ptr<Discreti
 {
 	for(int i = 0; i < MAX_NUMBER_NEUTRAL_AGENT; ++i)
 	{
-		IDSReal2D point;
+		Real2D point;
 		_space->getRandomPosition(point);
 		m_agent.insert( std::make_shared<Neutral>( m_agent.size(), point) );
 	}
@@ -35,7 +35,7 @@ World::World(std::shared_ptr<Agent> _agent, std::shared_ptr<DiscretizedArea> _sp
 	m_agent.insert(_agent);
 	for(int i = 0; i < MAX_NUMBER_NEUTRAL_AGENT; ++i)
 	{
-		IDSReal2D point;
+		Real2D point;
 		_space->getRandomPosition(point);
 		m_agent.insert( std::make_shared<Neutral>( m_agent.size(), point) );
 	}
@@ -180,7 +180,7 @@ void World::randomInitializeGuards()
 			continue;
 
 		// compute position of agent and camera:
-		IDSReal2D l_point;
+		Real2D l_point;
 		if(m_space->getRandomPosition(l_point))
 			// set position of the agent:
 			l_agent->setCurrentPosition( AgentPosition( l_point, CameraPosition( ((m_space->getXStep() +  m_space->getYStep()) / 2) * 3 ) ) );
@@ -197,7 +197,7 @@ void World::randomInitializeNeutrals()
 		if( l_agent->isThief() || l_agent->isGuard() || l_agent->isSink() )
 			continue;
 
-		IDSReal2D l_point;
+		Real2D l_point;
 		if(m_space->getRandomPosition(l_point))
 			// set position of the agent:
 			l_agent->setCurrentPosition( AgentPosition( l_point, CameraPosition( ) ) );
@@ -214,7 +214,7 @@ void World::randomInitializeThief()
 		if(!l_agent->isThief())
 			continue;
 
-		IDSReal2D l_point;
+		Real2D l_point;
 		if(m_space->getRandomPosition(l_point))
 			// set position of the agent:
 			l_agent->setCurrentPosition( AgentPosition( l_point, CameraPosition( ) ) );
@@ -311,13 +311,13 @@ void World::getSinksSquare(std::vector<std::pair<std::shared_ptr<Square>,int>> &
 }
 
 //////////////////////////////////////////////////////////////////////////
-void World::getSinksCoverage( std::vector< std::vector<IDSReal2D> > & _areas)
+void World::getSinksCoverage( std::vector< std::vector<Real2D> > & _areas)
 {
 	return;
 	std::set<SinkPtr> l_sinks = this->getSinks();
 	for(auto it = l_sinks.begin(); it != l_sinks.end(); ++it)
 	{
-		std::vector<IDSReal2D> l_agentArea;
+		std::vector<Real2D> l_agentArea;
 		SinkPtr l_agent = *it;
 		std::shared_ptr<Shape2D> l_area = l_agent->getVisibleArea();
 		_areas.push_back(l_area->getBoundaryPoints());

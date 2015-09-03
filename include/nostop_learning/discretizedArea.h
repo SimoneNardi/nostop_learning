@@ -9,19 +9,19 @@
 
 #include "area.h"
 
-#include "IDSBox.h"
+#include "Box.h"
 
 #include <lemon/list_graph.h>
 #include <lemon/bfs.h>
 
 #include <set>
 
-namespace IDS
+namespace 
 {
 	namespace BaseGeometry
 	{
 		class Shape2D;
-		class IDSReal2D;
+		class Real2D;
 	}
 }
 
@@ -73,15 +73,15 @@ namespace Robotics
 			/// The value associated to the square by the monitor
 			std::vector<double> m_values;
 
-			IDSBox m_box;
+			Box m_box;
 
 			std::vector<double> m_old_values;
 		public:
 
 			/// Set the box of the Square
-			void setBoundingBox(IDSBox const& _box);
+			void setBoundingBox(Box const& _box);
 			/// Get the Bounding Box of the square
-			IDSBox getBoundingBox() {return m_box;}
+			Box getBoundingBox() {return m_box;}
 
 			/// Set counter to zero.
 			inline void resetCounter() {m_counter = 0;};
@@ -105,8 +105,8 @@ namespace Robotics
 			Square(std::shared_ptr<lemon::ListGraph> _graph);
 			lemon::ListGraph::Node getNode() const {return m_node;}
 
-			IDSReal2D vertex(int i) const;
-			IDSReal2D agentVertex(int i) const;
+			Real2D vertex(int i) const;
+			Real2D agentVertex(int i) const;
 
 			bool isChanged() const;
 			/// Set the value to zero.
@@ -157,15 +157,15 @@ namespace Robotics
 			void resetValue();
 
 			/// Get the origin of the lattice.
-			IDSReal2D getOrigin() const;
+			Real2D getOrigin() const;
 
 			/// Compute index of row and index of column of the given point.
-			AreaCoordinate getCoordinate( IDSReal2D const& point ) const;
+			AreaCoordinate getCoordinate( Real2D const& point ) const;
 
 			SquarePtr getSquare(int row, int col) const;
 			SquarePtr getSquare(AreaCoordinate _coord) const;
-			SquarePtr getSquare(IDSReal2D const& V) const;
-			IDSReal2D getPosition(AreaCoordinate const& _coord) const;
+			SquarePtr getSquare(Real2D const& V) const;
+			Real2D getPosition(AreaCoordinate const& _coord) const;
 
 			int getDistance(
 				SquarePtr source, 
@@ -175,11 +175,11 @@ namespace Robotics
 				AreaCoordinate _source, 
 				AreaCoordinate _target);
 
-			int getDistanceFromNearestSink(IDSReal2D const& _agentPosition);
+			int getDistanceFromNearestSink(Real2D const& _agentPosition);
 
 			std::vector<SquarePtr> getSquares() const;
 
-			bool getRandomPosition(IDSReal2D & _point) const;
+			bool getRandomPosition(Real2D & _point) const;
 			void setThiefPosition(AgentPosition const& _pos);
 			void setSinkPosition(AgentPosition const& _pos);
 			double getThiefMaxValue(AgentPosition const& _pos);

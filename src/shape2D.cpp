@@ -1,6 +1,6 @@
 #include "shape2D.h"
-#include "IDSReal2D.h"
-#include "IDSBox.h"
+#include "Real2D.h"
+#include "Box.h"
 
 using namespace Robotics;
 using namespace Robotics::GameTheory;

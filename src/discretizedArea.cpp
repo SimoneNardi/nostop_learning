@@ -4,11 +4,11 @@
 #include "unStructuredArea.h"
 #include "agent.h"
 
-#include "IDSReal2D.h"
-#include "IDSReal3D.h"
+#include "Real2D.h"
+#include "Real3D.h"
 #include "shape2D.h"
 #include "line2D.h"
-#include "IDSBox.h"
+#include "Box.h"
 
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -58,7 +58,7 @@ SquarePtr DiscretizedArea::getSquare(int row, int col) const
 }
 
 //////////////////////////////////////////////////////////////////////////
-bool DiscretizedArea::getRandomPosition(IDSReal2D & _point) const
+bool DiscretizedArea::getRandomPosition(Real2D & _point) const
 {
 	/// Compute Random Position:
 	srand ( (unsigned int) time(NULL) );
@@ -73,9 +73,9 @@ bool DiscretizedArea::getRandomPosition(IDSReal2D & _point) const
 
 		if(l_square->isValid())
 		{
-			IDSReal3D l_point = l_square->getBoundingBox().center();
+			Real3D l_point = l_square->getBoundingBox().center();
 
-			_point = IDSReal2D(l_point(1), l_point(2));
+			_point = Real2D(l_point(1), l_point(2));
 			return true;
 		}
 		else
@@ -91,7 +91,7 @@ bool DiscretizedArea::getRandomPosition(IDSReal2D & _point) const
 //////////////////////////////////////////////////////////////////////////
 bool DiscretizedArea::isOut(AgentPosition const& _pos) const
 {
-	IDSReal2D l_point = _pos.getPoint2D();
+	Real2D l_point = _pos.getPoint2D();
 	AreaCoordinate l_coord = this->getCoordinate( l_point );
 	SquarePtr l_square = this->getSquare(l_coord);
 	if(!l_square)
@@ -185,10 +185,10 @@ DiscretizedArea::DiscretizedArea(std::string const& _filename)
 		throw std::runtime_error("Unable to open Grid File!");
 	}
 
-	IDSReal2D l_bottomLeft;
-	IDSReal2D	l_bottomRight;
-	IDSReal2D	l_topLeft;
-	IDSReal2D	l_topRight;
+	Real2D l_bottomLeft;
+	Real2D	l_bottomRight;
+	Real2D	l_topLeft;
+	Real2D	l_topRight;
 
 	std::vector<std::vector<bool>> l_grid;
 	int l_numcol(1), l_numrow(1);
@@ -205,16 +205,16 @@ DiscretizedArea::DiscretizedArea(std::string const& _filename)
 			switch(i)
 			{
 			case 0:
-				l_topLeft = IDSReal2D(x,y);
+				l_topLeft = Real2D(x,y);
 				break;
 			case 1:
-				l_topRight = IDSReal2D(x,y);
+				l_topRight = Real2D(x,y);
 				break;
 			case 2:
-				l_bottomRight = IDSReal2D(x,y);
+				l_bottomRight = Real2D(x,y);
 				break;
 			case 3:
-				l_bottomLeft = IDSReal2D(x,y);
+				l_bottomLeft = Real2D(x,y);
 				break;
 			}
 		}
@@ -260,13 +260,13 @@ DiscretizedArea::DiscretizedArea(std::string const& _filename)
 	bool l_firstrow = true;
 	int irow = 0;
 
-	while(l_ypos < l_ydist + IDSMath::TOLERANCE)
+	while(l_ypos < l_ydist + Math::TOLERANCE)
 	{
 		double l_yorigin = l_ypos + l_bottomLeft(1);
 		int l_count = 0;
 		l_xpos=0.;
 		int icol = 0;
-		while( (l_firstrow && l_xpos < l_xdist + IDSMath::TOLERANCE) || (!l_firstrow && l_count < m_numCol))
+		while( (l_firstrow && l_xpos < l_xdist + Math::TOLERANCE) || (!l_firstrow && l_count < m_numCol))
 		{
 			double l_xorigin = l_xpos + l_bottomLeft(0);
 			l_xpos+=m_xStep;
@@ -297,20 +297,20 @@ DiscretizedArea::DiscretizedArea(std::string const& _filename)
 	m_listGraph->reserveNode(m_numCol*m_numRow);
 	m_listGraph->reserveEdge( (m_numCol-1)*(m_numRow-1)*4  );
 
-	while(l_ypos < l_ydist + IDSMath::TOLERANCE)
+	while(l_ypos < l_ydist + Math::TOLERANCE)
 	{
 		double l_yorigin = l_ypos + l_bottomLeft(1);
 		int l_count = 0;
 		l_xpos=0.;
 		int icol = 0;
-		while( (l_firstrow && l_xpos < l_xdist + IDSMath::TOLERANCE) || (!l_firstrow && l_count < m_numCol))
+		while( (l_firstrow && l_xpos < l_xdist + Math::TOLERANCE) || (!l_firstrow && l_count < m_numCol))
 		{
 			double l_xorigin = l_xpos + l_bottomLeft(0);
 
-			IDSReal2D l_mincord = IDSReal2D(l_xorigin, l_yorigin);
-			IDSReal2D l_maxcord = IDSReal2D(l_xorigin+m_xStep, l_yorigin+m_yStep);
+			Real2D l_mincord = Real2D(l_xorigin, l_yorigin);
+			Real2D l_maxcord = Real2D(l_xorigin+m_xStep, l_yorigin+m_yStep);
 
-			IDSBox l_boxSquare(l_mincord);
+			Box l_boxSquare(l_mincord);
 			l_boxSquare.extend(l_maxcord);
 
 			SquarePtr l_square = std::make_shared<Square>(m_listGraph);
@@ -346,12 +346,12 @@ DiscretizedArea::DiscretizedArea(std::shared_ptr<StructuredArea> _area)
 	, m_numberOfValidSquare(-1)
 	, m_sinkCoordinate(-1,-1)
 {
-	IDSBox l_box = _area->getBoundingBox();
+	Box l_box = _area->getBoundingBox();
 
-	IDSReal3D 	l_bottomLeft = l_box.corner(0);
-	IDSReal3D	l_bottomRight = l_box.corner(1);
-	IDSReal3D	l_topLeft = l_box.corner(2);
-	IDSReal3D	l_topRight = l_box.corner(3);
+	Real3D 	l_bottomLeft = l_box.corner(0);
+	Real3D	l_bottomRight = l_box.corner(1);
+	Real3D	l_topLeft = l_box.corner(2);
+	Real3D	l_topRight = l_box.corner(3);
 
 	double l_xdist = l_bottomLeft.distance(l_bottomRight);
 	double l_ydist = l_bottomLeft.distance(l_topLeft);
@@ -368,19 +368,19 @@ DiscretizedArea::DiscretizedArea(std::shared_ptr<StructuredArea> _area)
 	m_numRow = 0;
 	m_numCol = 0;
 	bool l_firstrow = true;
-	while(l_ypos < l_ydist + IDSMath::TOLERANCE)
+	while(l_ypos < l_ydist + Math::TOLERANCE)
 	{
 		double l_yorigin = l_ypos + l_bottomLeft(1);
 		int l_count = 0;
 		l_xpos=0.;
-		while( (l_firstrow && l_xpos < l_xdist + IDSMath::TOLERANCE) || (!l_firstrow && l_count < m_numCol))
+		while( (l_firstrow && l_xpos < l_xdist + Math::TOLERANCE) || (!l_firstrow && l_count < m_numCol))
 		{
 			double l_xorigin = l_xpos + l_bottomLeft(0);
 
-			IDSReal2D l_mincord = IDSReal2D(l_xorigin, l_yorigin);
-			IDSReal2D l_maxcord = IDSReal2D(l_xorigin+m_xStep, l_yorigin+m_yStep);
+			Real2D l_mincord = Real2D(l_xorigin, l_yorigin);
+			Real2D l_maxcord = Real2D(l_xorigin+m_xStep, l_yorigin+m_yStep);
 
-			IDSBox l_boxSquare(l_mincord);
+			Box l_boxSquare(l_mincord);
 			l_boxSquare.extend(l_maxcord);
 
 			SquarePtr l_square = std::make_shared<Square>(m_listGraph);
@@ -408,11 +408,11 @@ DiscretizedArea::DiscretizedArea(std::shared_ptr<StructuredArea> _area)
 }
 
 //////////////////////////////////////////////////////////////////////////
-IDSReal2D DiscretizedArea::getOrigin() const
+Real2D DiscretizedArea::getOrigin() const
 {
-	IDSReal3D l_origin = m_lattice.at(0)->getBoundingBox().minCoord;
+	Real3D l_origin = m_lattice.at(0)->getBoundingBox().minCoord;
 
-	return IDSReal2D(l_origin(0), l_origin(1));
+	return Real2D(l_origin(0), l_origin(1));
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -430,12 +430,12 @@ DiscretizedArea::DiscretizedArea(Shape2D const& _external, std::set< Shape2D > c
 	, m_numberOfValidSquare(-1)
 	, m_sinkCoordinate(-1,-1)
 {
-	IDSBox l_box = _external.getBoundingBox();
+	Box l_box = _external.getBoundingBox();
 
-	IDSReal3D 	l_bottomLeft = l_box.corner(0);
-	IDSReal3D	l_bottomRight = l_box.corner(1);
-	IDSReal3D	l_topLeft = l_box.corner(2);
-	IDSReal3D	l_topRight = l_box.corner(3);
+	Real3D 	l_bottomLeft = l_box.corner(0);
+	Real3D	l_bottomRight = l_box.corner(1);
+	Real3D	l_topLeft = l_box.corner(2);
+	Real3D	l_topRight = l_box.corner(3);
 
 	double l_xdist = l_bottomLeft.distance(l_bottomRight);
 	double l_ydist = l_bottomLeft.distance(l_topLeft);
@@ -452,19 +452,19 @@ DiscretizedArea::DiscretizedArea(Shape2D const& _external, std::set< Shape2D > c
 	m_numRow = 0;
 	m_numCol = 0;
 	bool l_firstrow = true;
-	while(l_ypos < l_ydist + IDSMath::TOLERANCE)
+	while(l_ypos < l_ydist + Math::TOLERANCE)
 	{
 		double l_yorigin = l_ypos + l_bottomLeft(1);
 		int l_count = 0;
 		l_xpos=0.;
-		while( (l_firstrow && l_xpos < l_xdist + IDSMath::TOLERANCE) || (!l_firstrow && l_count < m_numCol))
+		while( (l_firstrow && l_xpos < l_xdist + Math::TOLERANCE) || (!l_firstrow && l_count < m_numCol))
 		{
 			double l_xorigin = l_xpos + l_bottomLeft(0);
 
-			IDSReal2D l_mincord = IDSReal2D(l_xorigin, l_yorigin);
-			IDSReal2D l_maxcord = IDSReal2D(l_xorigin+m_xStep, l_yorigin+m_yStep);
+			Real2D l_mincord = Real2D(l_xorigin, l_yorigin);
+			Real2D l_maxcord = Real2D(l_xorigin+m_xStep, l_yorigin+m_yStep);
 
-			IDSBox l_boxSquare(l_mincord);
+			Box l_boxSquare(l_mincord);
 			l_boxSquare.extend(l_maxcord);
 
 			SquarePtr l_square = std::make_shared<Square>(m_listGraph);
@@ -492,17 +492,17 @@ DiscretizedArea::DiscretizedArea(Shape2D const& _external, std::set< Shape2D > c
 }
 
 //////////////////////////////////////////////////////////////////////////
-AreaCoordinate DiscretizedArea::getCoordinate(IDSReal2D const& point) const
+AreaCoordinate DiscretizedArea::getCoordinate(Real2D const& point) const
 {
-	IDSReal3D l_bottomLeft = m_lattice[0]->getBoundingBox().minCoord;
-	IDSReal3D l_bottomRight = m_lattice[0]->getBoundingBox().corner(1);
-	IDSReal3D l_topLeft = m_lattice[0]->getBoundingBox().corner(2);
+	Real3D l_bottomLeft = m_lattice[0]->getBoundingBox().minCoord;
+	Real3D l_bottomRight = m_lattice[0]->getBoundingBox().corner(1);
+	Real3D l_topLeft = m_lattice[0]->getBoundingBox().corner(2);
 
 	Line2D l_vertical = Line2D(l_bottomLeft, l_bottomRight);
 	Line2D l_horizontal = Line2D(l_bottomLeft, l_topLeft);
 
-	IDSReal2D l_prjVertical = l_vertical.projectPoint(point);
-	IDSReal2D l_prjOrizontal = l_horizontal.projectPoint(point);
+	Real2D l_prjVertical = l_vertical.projectPoint(point);
+	Real2D l_prjOrizontal = l_horizontal.projectPoint(point);
 
 	double l_ydist = l_vertical.parameterAt(l_prjVertical);
 	double l_xdist = l_horizontal.parameterAt(l_prjOrizontal);
@@ -512,17 +512,17 @@ AreaCoordinate DiscretizedArea::getCoordinate(IDSReal2D const& point) const
 }
 
 //////////////////////////////////////////////////////////////////////////
-SquarePtr DiscretizedArea::getSquare(IDSReal2D const& V) const
+SquarePtr DiscretizedArea::getSquare(Real2D const& V) const
 {
 	AreaCoordinate l_coord = getCoordinate(V);
 	return this->getSquare(l_coord);
 }
 
-IDSReal2D DiscretizedArea::getPosition(AreaCoordinate const& _coord) const
+Real2D DiscretizedArea::getPosition(AreaCoordinate const& _coord) const
 {
 	SquarePtr l_square = this->getSquare(_coord);
 	if(!l_square)
-		return IDSReal2D();
+		return Real2D();
 	return l_square->getBoundingBox().center();
 }
 
@@ -812,7 +812,7 @@ void DiscretizedArea::printOnFile(std::ofstream & _stream)
 }
 
 //////////////////////////////////////////////////////////////////////////
-int DiscretizedArea::getDistanceFromNearestSink(IDSReal2D const& _agentPosition)
+int DiscretizedArea::getDistanceFromNearestSink(Real2D const& _agentPosition)
 {
 	return getDistance(this->getCoordinate(_agentPosition), m_sinkCoordinate);
 }
@@ -854,7 +854,7 @@ Square::Square(std::shared_ptr<lemon::ListGraph> _graph)
 {}
 
 //////////////////////////////////////////////////////////////////////////
-IDSReal2D Square::vertex(int i) const
+Real2D Square::vertex(int i) const
 {
 	int index = i;
 	if(i == 2)
@@ -865,7 +865,7 @@ IDSReal2D Square::vertex(int i) const
 }
 
 //////////////////////////////////////////////////////////////////////////
-IDSReal2D Square::agentVertex(int i) const
+Real2D Square::agentVertex(int i) const
 {
 	int index = i;
 	if(i == 2)
@@ -878,7 +878,7 @@ IDSReal2D Square::agentVertex(int i) const
 }
 
 //////////////////////////////////////////////////////////////////////////
-void Square::setBoundingBox(IDSBox const& _box)
+void Square::setBoundingBox(Box const& _box)
 {
 	m_box = _box;
 }
@@ -886,7 +886,7 @@ void Square::setBoundingBox(IDSBox const& _box)
 //////////////////////////////////////////////////////////////////////////
 bool Square::isChanged() const
 {
-	return fabs(m_values.at(1) - m_old_values.at(1)) > IDSMath::TOLERANCE;
+	return fabs(m_values.at(1) - m_old_values.at(1)) > Math::TOLERANCE;
 }
 
 //////////////////////////////////////////////////////////////////////////

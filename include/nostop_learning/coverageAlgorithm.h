@@ -12,7 +12,7 @@
 #include <vector>
 #include <string>
 
-#include "IDSReal2D.h"
+#include "Real2D.h"
 
 namespace Robotics 
 {
@@ -129,16 +129,16 @@ namespace Robotics
 
 			std::vector< std::shared_ptr<Square> > getSquares() const;
 
-			bool areaContains(const IDSReal2D & _thiefStartingPt) const;
+			bool areaContains(const Real2D & _thiefStartingPt) const;
 
 			void getGuardsPosition(std::vector<AgentPosition> & _pos);
 			void getGuardsSquare(std::vector<std::pair<std::shared_ptr<Square>, AgentActionIndex>> & _pos);
-			void getGuardsCoverage( std::vector< std::vector<IDSReal2D> > & _areas);
+			void getGuardsCoverage( std::vector< std::vector<Real2D> > & _areas);
 			int numberOfSquaresCoveredByGuards() const;
 
 			void getSinksPosition(std::vector<AgentPosition> & _pos);
 			void getSinksSquare(std::vector<std::pair<std::shared_ptr<Square>,int>> & _pos);
-			void getSinksCoverage( std::vector< std::vector<IDSReal2D> > & _areas);
+			void getSinksCoverage( std::vector< std::vector<Real2D> > & _areas);
 			void setPositionOfSink(AgentPosition const& pos, std::shared_ptr<Sink> _agent/* = nullptr*/);
 			void removeAllSinks();
 
@@ -180,7 +180,7 @@ namespace Robotics
 
 #pragma endregion
 
-			std::shared_ptr<Square> findSquare(IDSReal2D const& point) const;
+			std::shared_ptr<Square> findSquare(Real2D const& point) const;
 
 #pragma region CONFIGURATION
 

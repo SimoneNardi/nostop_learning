@@ -6,7 +6,7 @@ using namespace Robotics;
 using namespace Robotics::GameTheory;
 
 /////////////////////////////////////////////
-Polygon::Polygon(std::vector<IDSReal2D> const& points_)
+Polygon::Polygon(std::vector<Real2D> const& points_)
 	: Shape2D()
 	, m_points(points_)
 {
@@ -21,14 +21,14 @@ Polygon::~Polygon()
 {}
 
 /////////////////////////////////////////////
-bool Polygon::contains(IDSReal3D const& point) const
+bool Polygon::contains(Real3D const& point) const
 {
-	IDSReal2D l_point(point(0), point(1));
+	Real2D l_point(point(0), point(1));
 	return this->contains(l_point);
 }
 
 /////////////////////////////////////////////
-bool Polygon::contains(IDSReal2D const& point) const
+bool Polygon::contains(Real2D const& point) const
 {
 	return point.belongsToPolygon(m_points);
 }

@@ -11,7 +11,7 @@
 #include <vector>
 #include <set>
 
-class IDSReal2D;
+class Real2D;
 
 namespace Robotics
 {
@@ -87,7 +87,7 @@ namespace Robotics
 
 			void getSinksSquare(std::vector<std::pair<std::shared_ptr<Square>,int>> & _pos);
 
-			void getSinksCoverage( std::vector< std::vector<IDSReal2D> > & _areas);
+			void getSinksCoverage( std::vector< std::vector<Real2D> > & _areas);
 		};
 
 		typedef std::shared_ptr<World> WorldPtr;

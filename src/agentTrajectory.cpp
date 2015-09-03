@@ -4,7 +4,7 @@
 
 #include "shape2D.h"
 #include "circle.h"
-#include "IDSReal2D.h"
+#include "Real2D.h"
 
 using namespace std;
 using namespace Robotics;
@@ -26,8 +26,8 @@ void MemoryGuardTrajectories::add(MemoryGuardTrajectory const& _elem)
 //////////////////////////////////////////////////////////////////////////
 void MemoryGuardTrajectories::computeBestWorstTrajectories()
 {
-	double l_bestPayoff = -IDSMath::Infinity;
-	double l_worstPayoff = IDSMath::Infinity;
+	double l_bestPayoff = -Math::Infinity;
+	double l_worstPayoff = Math::Infinity;
 	for(size_t i = 0; i < m_elems.size(); ++i)
 	{
 		double l_currentPayoff = m_elems[i].m_payoff;
@@ -134,7 +134,7 @@ void AgentPosition::updateCounter(std::shared_ptr<DiscretizedArea> area)
 //////////////////////////////////////////////////////////////////////////
 bool AgentPosition::communicable(std::shared_ptr<Agent> _otherAgent) const
 {
-	return m_point.distance( _otherAgent->getCurrentPosition().getPoint2D() ) < 2 * m_camera.getFarRadius() + IDSMath::TOLERANCE;
+	return m_point.distance( _otherAgent->getCurrentPosition().getPoint2D() ) < 2 * m_camera.getFarRadius() + Math::TOLERANCE;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -173,13 +173,13 @@ std::shared_ptr<Shape2D> AgentPosition::getVisibleArea() const
 //////////////////////////////////////////////////////////////////////////
 bool CameraPosition::operator==(CameraPosition const& other) const
 {
-	if(fabs(m_farRadius-other.m_farRadius) > IDSMath::TOLERANCE)
+	if(fabs(m_farRadius-other.m_farRadius) > Math::TOLERANCE)
 		return false;
-	else if(fabs(m_nearRadius-other.m_nearRadius) > IDSMath::TOLERANCE)
+	else if(fabs(m_nearRadius-other.m_nearRadius) > Math::TOLERANCE)
 		return false;
-	else if(fabs(m_orientation-other.m_orientation) > IDSMath::TOLERANCE)
+	else if(fabs(m_orientation-other.m_orientation) > Math::TOLERANCE)
 		return false;
-	else if(fabs(m_angle-other.m_angle) > IDSMath::TOLERANCE)
+	else if(fabs(m_angle-other.m_angle) > Math::TOLERANCE)
 		return false;
 	return true;
 }
@@ -193,7 +193,7 @@ bool CameraPosition::operator!=(CameraPosition const& other) const
 //////////////////////////////////////////////////////////////////////////
 std::vector<AreaCoordinate> CameraPosition::getCoverage(AreaCoordinate _center, std::shared_ptr<DiscretizedArea> _area) const
 {
-	IDSReal2D l_pt = _area->getPosition(_center);
+	Real2D l_pt = _area->getPosition(_center);
 	std::shared_ptr<Shape2D> l_sensorArea = this->getVisibleArea(l_pt);
 	if(!l_sensorArea->isValid())
 		return std::vector<AreaCoordinate>();
@@ -230,10 +230,10 @@ std::vector<AreaCoordinate> CameraPosition::getCoverage(AreaCoordinate _center, 
 }
 
 //////////////////////////////////////////////////////////////////////////
-std::shared_ptr<Shape2D> CameraPosition::getVisibleArea(IDSReal2D const& point) const
+std::shared_ptr<Shape2D> CameraPosition::getVisibleArea(Real2D const& point) const
 	try
 {
-	if(fabs(m_farRadius) < IDSMath::TOLERANCE)
+	if(fabs(m_farRadius) < Math::TOLERANCE)
 		return nullptr;
 
 	return std::make_shared<Circle>( point, m_farRadius );
@@ -257,7 +257,7 @@ bool MemoryGuardTrajectory::equals(MemoryGuardTrajectory const& _other) const
 	if(this->m_memTrajectory != _other.m_memTrajectory)
 		return false;
 
-	if(fabs( this->m_payoff - _other.m_payoff ) > IDSMath::TOLERANCE )
+	if(fabs( this->m_payoff - _other.m_payoff ) > Math::TOLERANCE )
 		return false;
 
 	return true;
@@ -268,7 +268,7 @@ bool MemoryGuardTrajectory::equals(GuardTrajectory const& _trajectory, double _p
 	if(this->m_memTrajectory != _trajectory)
 		return false;
 
-	if(fabs( this->m_payoff - _payoff ) > IDSMath::TOLERANCE )
+	if(fabs( this->m_payoff - _payoff ) > Math::TOLERANCE )
 		return false;
 
 	return true;

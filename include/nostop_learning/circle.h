@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IDSReal2D.h"
+#include "Real2D.h"
 
 #include "shape2D.h"
 
@@ -13,23 +13,23 @@ namespace Robotics
 		class Circle : public Shape2D
 		{
 		public:
-			IDSReal2D m_center;
+			Real2D m_center;
 			double m_radius;
 
 			Circle() : m_center(), m_radius(-1) {}
 
-			Circle(IDSReal2D const& _center, double radius_);
+			Circle(Real2D const& _center, double radius_);
 
 			~Circle();
 
 			inline bool isValid() const {return !(m_radius<0.);}
 
-			bool contains(IDSReal3D const& point) const;
-			bool contains(IDSReal2D const& point) const;
+			bool contains(Real3D const& point) const;
+			bool contains(Real2D const& point) const;
 
-			std::vector<IDSReal2D> getBoundaryPoints() const {return getCircumPolygon();}
+			std::vector<Real2D> getBoundaryPoints() const {return getCircumPolygon();}
 		protected:
-			std::vector<IDSReal2D> getCircumPolygon() const;
+			std::vector<Real2D> getCircumPolygon() const;
 		};
 	}
 }

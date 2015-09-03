@@ -10,7 +10,7 @@
 #include "area.h"
 
 #include "shape2D.h"
-#include "IDSReal2D.h"
+#include "Real2D.h"
 
 #include <memory>
 #include <set>
@@ -28,18 +28,18 @@ namespace Robotics
 			std::set<std::shared_ptr<Shape2D> > m_obstacles;
 		public:
 			/// Create an area without obstacles
-			StructuredArea(std::vector<IDSReal2D> const& points);
+			StructuredArea(std::vector<Real2D> const& points);
 
 			/// Discretize the Area
 			virtual std::shared_ptr<DiscretizedArea> discretize();
 
 			/// Get a point inside the area
-			virtual IDSReal2D randomPosition() const;
+			virtual Real2D randomPosition() const;
 
 			/// True if a corner or the center is inside the area, False otherwise
-			virtual bool isInside( IDSBox const& _box) const;
+			virtual bool isInside( Box const& _box) const;
 
-			IDSBox getBoundingBox() const;
+			Box getBoundingBox() const;
 
 			/// 
 			double getDistance() const;

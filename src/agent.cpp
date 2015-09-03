@@ -46,20 +46,20 @@ void Agent::setNextPosition(AgentPosition const& pos)
 }
 
 //////////////////////////////////////////////////////////////////////////
-			AgentPosition Agent::getCurrentPosition() const 
-			{
-			  Lock l_lock(m_mutex);
-			  return m_currentPosition;
-			}
+AgentPosition Agent::getCurrentPosition() const 
+{
+  Lock l_lock(m_mutex);
+  return m_currentPosition;
+}
+
+//////////////////////////////////////////////////////////////////////////
+int Agent::getID() const 
+{
+  Lock l_lock(m_mutex);
+  return m_id;
+}
 			
-			//////////////////////////////////////////////////////////////////////////
-			int Agent::getID() const 
-			{
-			  Lock l_lock(m_mutex);
-			  return m_id;
-			}
-			
-			//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 std::shared_ptr<Shape2D> Agent::getVisibleArea() const 
 {
   			  Lock l_lock(m_mutex);
@@ -195,9 +195,9 @@ Lock l_lock(m_mutex);
 double Agent::getCurrentRotation() const
 {
 	Lock l_lock(m_mutex);
-	IDSReal2D l_delta = m_nextPosition.getPoint2D() - m_currentPosition.getPoint2D();
+	Real2D l_delta = m_nextPosition.getPoint2D() - m_currentPosition.getPoint2D();
 	
-	return IDSMath::polarPhi2D(l_delta);
+	return Math::polarPhi2D(l_delta);
 }
 
 //////////////////////////////////////////////////////////////////////////			

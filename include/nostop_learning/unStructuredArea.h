@@ -21,10 +21,10 @@ namespace Robotics
 			virtual std::shared_ptr<DiscretizedArea> discretize();
 
 			/// Get a point inside the area
-			virtual IDSReal2D randomPosition() const;
+			virtual Real2D randomPosition() const;
 
 			/// True if a corner or the center is inside the area, False otherwise
-			virtual bool isInside( IDSBox const& _box) const {return true;}
+			virtual bool isInside( Box const& _box) const {return true;}
 
 			double getDistance() const;
 		};

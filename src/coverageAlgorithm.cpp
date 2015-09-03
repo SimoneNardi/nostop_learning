@@ -15,7 +15,7 @@
 #include "sink.h"
 #include "world.h"
 
-#include "IDSReal2D.h"
+#include "Real2D.h"
 
 #include <iostream>
 #include <fstream>
@@ -366,13 +366,13 @@ std::vector< std::shared_ptr<Square> > CoverageAlgorithm::getSquares() const
 }
 
 //////////////////////////////////////////////////////////////////////////
-bool CoverageAlgorithm::areaContains(const IDSReal2D & _thiefStartingPt) const
+bool CoverageAlgorithm::areaContains(const Real2D & _thiefStartingPt) const
 {
 	return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
-SquarePtr CoverageAlgorithm::findSquare(IDSReal2D const& point) const
+SquarePtr CoverageAlgorithm::findSquare(Real2D const& point) const
 {
 	return m_world->getSpace()->getSquare(point);
 }
@@ -384,7 +384,7 @@ void CoverageAlgorithm::getGuardsPosition(std::vector<AgentPosition> & _pos)
 }
 
 //////////////////////////////////////////////////////////////////////////
-void CoverageAlgorithm::getGuardsCoverage( std::vector< std::vector<IDSReal2D> > & _areas)
+void CoverageAlgorithm::getGuardsCoverage( std::vector< std::vector<Real2D> > & _areas)
 {
 	return m_learning->getGuardsCoverage(_areas);
 }
@@ -420,7 +420,7 @@ void CoverageAlgorithm::getSinksSquare(std::vector<std::pair<std::shared_ptr<Squ
 }
 
 //////////////////////////////////////////////////////////////////////////
-void CoverageAlgorithm::getSinksCoverage( std::vector< std::vector<IDSReal2D> > & _areas)
+void CoverageAlgorithm::getSinksCoverage( std::vector< std::vector<Real2D> > & _areas)
 {
 	return m_world->getSinksCoverage(_areas);
 }
@@ -532,7 +532,7 @@ void CoverageAlgorithm::getThievesPosition(std::vector<AgentPosition> & _pos)
 //////////////////////////////////////////////////////////////////////////
 struct AgentDriver 
 {
-	IDSReal2D position;
+	Real2D position;
 	enum Type
 	{
 		THIEF =-1,
@@ -545,7 +545,7 @@ struct AgentDriver
 //////////////////////////////////////////////////////////////////////////
 void importFromFile(
 	std::string const & _filename, 
-	std::vector<IDSReal2D> & _boundary,
+	std::vector<Real2D> & _boundary,
 	std::vector<AgentDriver> & _agents)
 {
 	std::ifstream iFile(_filename);	// input.txt has integers, one per line
@@ -559,7 +559,7 @@ void importFromFile(
 			double x, y;
 			iFile >> x;
 			iFile >> y;
-			_boundary.push_back( IDSReal2D(x,y) );
+			_boundary.push_back( Real2D(x,y) );
 		}
 		iFile >> numOfXXX;	// guards
 		for(int i = 0; i < numOfXXX; ++i)
@@ -568,7 +568,7 @@ void importFromFile(
 			iFile >> x;
 			iFile >> y;
 			AgentDriver driver;
-			driver.position = IDSReal2D(x,y);
+			driver.position = Real2D(x,y);
 			driver.type = AgentDriver::GUARD;
 			_agents.push_back(driver);
 		}
@@ -579,7 +579,7 @@ void importFromFile(
 			iFile >> x;
 			iFile >> y;
 			AgentDriver driver;
-			driver.position = IDSReal2D(x,y);
+			driver.position = Real2D(x,y);
 			driver.type = AgentDriver::THIEF;
 			_agents.push_back(driver);
 		}
@@ -590,7 +590,7 @@ void importFromFile(
 			iFile >> x;
 			iFile >> y;
 			AgentDriver driver;
-			driver.position = IDSReal2D(x,y);
+			driver.position = Real2D(x,y);
 			driver.type = AgentDriver::SINK;
 			_agents.push_back(driver);
 		}
@@ -601,7 +601,7 @@ void importFromFile(
 			iFile >> x;
 			iFile >> y;
 			AgentDriver driver;
-			driver.position = IDSReal2D(x,y);
+			driver.position = Real2D(x,y);
 			driver.type = AgentDriver::NEUTRAL;
 			_agents.push_back(driver);
 		}
@@ -612,7 +612,7 @@ void importFromFile(
 //////////////////////////////////////////////////////////////////////////
 std::shared_ptr<CoverageAlgorithm> Robotics::GameTheory::CoverageAlgorithm::createFromFile(std::string const & _filename, int _type, int _period)
 {
-	std::vector<IDSReal2D> l_bound;
+	std::vector<Real2D> l_bound;
 	std::vector<AgentDriver> l_agentDriver;
 
 	importFromFile(_filename, l_bound, l_agentDriver);
@@ -673,7 +673,7 @@ std::shared_ptr<CoverageAlgorithm> Robotics::GameTheory::CoverageAlgorithm::crea
 	int _periodIndex,
 	double _epsilon)
 {
-	std::vector<IDSReal2D> l_bound;
+	std::vector<Real2D> l_bound;
 	std::vector<AgentDriver> l_agentDriver;
 #ifdef _PRINT
 	cout << "importing agent"<<endl;
@@ -710,7 +710,7 @@ std::shared_ptr<CoverageAlgorithm> Robotics::GameTheory::CoverageAlgorithm::crea
 			/*l_space->randomPosition()*/, 
 			CameraPosition( double(l_space->getXStep() + l_space->getYStep())/2. *1.5) );
 
-		IDSReal2D l_point;
+		Real2D l_point;
 		if( l_space->getRandomPosition(l_point) && 0)
 		{
 			l_pos = AgentPosition ( l_point, CameraPosition( double(l_space->getXStep() + l_space->getYStep())/2. *1.5) );
@@ -744,7 +744,7 @@ std::shared_ptr<CoverageAlgorithm> Robotics::GameTheory::CoverageAlgorithm::crea
 
 		AgentPosition l_pos( l_agentDriver[i].position, CameraPosition() );
 
-		IDSReal2D l_point;
+		Real2D l_point;
 		if( l_space->getRandomPosition(l_point) )
 		{
 			l_pos = AgentPosition ( l_point, CameraPosition() );
@@ -767,7 +767,7 @@ std::shared_ptr<CoverageAlgorithm> Robotics::GameTheory::CoverageAlgorithm::crea
 
 		AgentPosition l_pos( l_agentDriver[i].position, CameraPosition() );
 
-		IDSReal2D l_point;
+		Real2D l_point;
 		if( l_space->getRandomPosition(l_point) )
 		{
 			l_pos = AgentPosition ( l_point, CameraPosition() );

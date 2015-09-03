@@ -1,10 +1,10 @@
 #pragma once
 
-#include "IDSBox.h"
+#include "Box.h"
 #include <vector>
 
-class IDSReal2D;
-class IDSReal3D;
+class Real2D;
+class Real3D;
 
 namespace Robotics
 {
@@ -13,7 +13,7 @@ namespace Robotics
 		class Shape2D
 		{
 		protected:
-			IDSBox m_box;
+			Box m_box;
 		public:
 			Shape2D();
 
@@ -21,12 +21,12 @@ namespace Robotics
 
 			virtual bool isValid() const = 0;
 
-			virtual bool contains(IDSReal3D const& point) const = 0;
-			virtual bool contains(IDSReal2D const& point) const = 0;
+			virtual bool contains(Real3D const& point) const = 0;
+			virtual bool contains(Real2D const& point) const = 0;
 
-			IDSBox getBoundingBox() const {return m_box;}
+			Box getBoundingBox() const {return m_box;}
 
-			virtual std::vector<IDSReal2D> getBoundaryPoints() const = 0;
+			virtual std::vector<Real2D> getBoundaryPoints() const = 0;
 
 		};
 	}

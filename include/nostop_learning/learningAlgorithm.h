@@ -15,7 +15,7 @@
 const int N_MAX = 100000;
 //const int N_MAX = 500;
 
-class IDSReal2D;
+class Real2D;
 
 namespace Robotics 
 {
@@ -62,7 +62,7 @@ namespace Robotics
 
 			virtual void getGuardsPosition(std::vector<AgentPosition> & _pos);
 			virtual void getGuardsSquare(std::vector< std::pair<std::shared_ptr<Square>, AgentActionIndex> > & _pos);
-			virtual void getGuardsCoverage( std::vector< std::vector<IDSReal2D> > & _areas);
+			virtual void getGuardsCoverage( std::vector< std::vector<Real2D> > & _areas);
 			virtual void setExperimentalRate(double _epsilon) {m_experimentalRate = _epsilon;}
 
 			int getTime() const {return m_time;}

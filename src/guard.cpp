@@ -58,13 +58,13 @@ int Guard::getBestTrajectoryIndex(bool _best)
 //////////////////////////////////////////////////////////////////////////
 void RemoveBestPositionFromFeasible(std::vector<AgentPosition> & _feasible, AgentPosition const& _bestPosition)
 {
-  	IDSReal2D l_posBest = _bestPosition.getPoint2D();
+  	Real2D l_posBest = _bestPosition.getPoint2D();
 
 	//if(l_posBest.isValid()) CONTROLLARE
 	{
 		for(size_t j = 0; j < _feasible.size();)
 		{
-			IDSReal2D l_posFeas = _feasible[j].getPoint2D();
+			Real2D l_posFeas = _feasible[j].getPoint2D();
 			bool found = false;
 			if(l_posFeas.distance(l_posBest) < 1.e-1)
 			{
@@ -280,7 +280,7 @@ AgentPosition Guard::selectNextFeasiblePositionWithoutConstraint(std::shared_ptr
 	{
 		std::vector<int> l_distanceNearestSink = _space->distanceFromNearestSink(l_notControlledFeasibleActions);
 
-		double l_mindist = IDSMath::Infinity;
+		double l_mindist = Math::Infinity;
 		int l_mindistIndex = -1;
 
 		for(size_t i = 0; i < l_distanceNearestSink.size(); ++i)

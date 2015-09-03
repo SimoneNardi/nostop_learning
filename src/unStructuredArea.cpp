@@ -9,9 +9,9 @@ std::shared_ptr<DiscretizedArea> UnStructuredArea::discretize()
 }
 
 //////////////////////////////////////////////////////////////////////////
-IDSReal2D UnStructuredArea::randomPosition() const
+Real2D UnStructuredArea::randomPosition() const
 {
-	return IDSReal2D();
+	return Real2D();
 }
 
 //////////////////////////////////////////////////////////////////////////

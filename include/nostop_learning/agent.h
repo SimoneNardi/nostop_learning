@@ -12,7 +12,7 @@
 
 #include "shape2D.h"
 
-#include "IDSReal2D.h"
+#include "Real2D.h"
 #include "Threads.h"
 
 namespace Robotics 
@@ -42,7 +42,7 @@ namespace Robotics
 			double m_angle;
 
 		public:
-			CameraPosition(double _farRadius = 0., double _nearRadius = 0., double _orientation = 0., double _angle = IDSMath::TwoPi) 
+			CameraPosition(double _farRadius = 0., double _nearRadius = 0., double _orientation = 0., double _angle = Math::TwoPi) 
 				: m_farRadius(_farRadius), m_nearRadius(_nearRadius), m_orientation(_orientation), m_angle(_angle) {}
 
 			std::vector<AreaCoordinate> getCoverage(AreaCoordinate _center, std::shared_ptr<DiscretizedArea> _area) const;
@@ -52,7 +52,7 @@ namespace Robotics
 			double getOrientation() const {return m_orientation;}
 			double getAngleOfView() const {return m_angle;}
 
-			std::shared_ptr<Shape2D> getVisibleArea(IDSReal2D const& point) const;
+			std::shared_ptr<Shape2D> getVisibleArea(Real2D const& point) const;
 
 			double computeCosts() const {return 0.;}
 
@@ -65,7 +65,7 @@ namespace Robotics
 		{
 		protected:
 			/// The position of the agent.
-			IDSReal2D m_point;
+			Real2D m_point;
 
 			/// The camera orientation.
 			CameraPosition m_camera;
@@ -73,15 +73,15 @@ namespace Robotics
 		public:
 			AgentPosition() {};
 
-			AgentPosition(IDSReal2D const& point) : m_point(point), m_camera() {}
+			AgentPosition(Real2D const& point) : m_point(point), m_camera() {}
 
-			AgentPosition(IDSReal2D const& point, CameraPosition _camera) : m_point(point), m_camera(_camera) {}
+			AgentPosition(Real2D const& point, CameraPosition _camera) : m_point(point), m_camera(_camera) {}
 
 			/// Update the counter of the lattice visible from that position
 			void updateCounter(std::shared_ptr<DiscretizedArea> area);
 
 			/// Get Point2D
-			IDSReal2D getPoint2D() const {return m_point;}
+			Real2D getPoint2D() const {return m_point;}
 			
 			CameraPosition getCameraControl() const {return m_camera;}
 

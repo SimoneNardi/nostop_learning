@@ -8,7 +8,7 @@
 #include "sink.h"
 #include "probability.h"
 
-#include "IDSReal2D.h"
+#include "Real2D.h"
 
 #include <sstream>
 #include <string>
@@ -21,7 +21,7 @@ using namespace Robotics::GameTheory;
 //////////////////////////////////////////////////////////////////////////
 double LearningAlgorithm::computeExplorationRate(std::shared_ptr<Guard> _agent)
 {
-	if( fabs(m_experimentalRate) > IDSMath::TOLERANCE )
+	if( fabs(m_experimentalRate) > Math::TOLERANCE )
 		return m_experimentalRate;
 
 	if(!_agent)
@@ -34,7 +34,7 @@ double LearningAlgorithm::computeExplorationRate(std::shared_ptr<Guard> _agent)
 //////////////////////////////////////////////////////////////////////////
 int LearningAlgorithm::getNumberOfSteps(double _stopRate)
 {
-	if( _stopRate < 0 || fabs(m_experimentalRate) > IDSMath::TOLERANCE )
+	if( _stopRate < 0 || fabs(m_experimentalRate) > Math::TOLERANCE )
 		return N_MAX;
 
 	return 5000; // CONTROLLARE
@@ -275,11 +275,11 @@ void LearningAlgorithm::getGuardsSquare(std::vector<std::pair<SquarePtr, AgentAc
 }
 
 //////////////////////////////////////////////////////////////////////////
-void LearningAlgorithm::getGuardsCoverage( std::vector< std::vector<IDSReal2D> > & _areas)
+void LearningAlgorithm::getGuardsCoverage( std::vector< std::vector<Real2D> > & _areas)
 {
 	for(set<GuardPtr>::iterator it = m_guards.begin(); it != m_guards.end(); ++it)
 	{
-		std::vector<IDSReal2D> l_agentArea;
+		std::vector<Real2D> l_agentArea;
 		GuardPtr l_agent = *it;
 		std::shared_ptr<Shape2D> l_area = l_agent->getVisibleArea();
 		_areas.push_back(l_area->getBoundaryPoints());

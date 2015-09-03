@@ -8,7 +8,7 @@
 #pragma once
 
 #include "shape2D.h"
-#include "IDSBox.h"
+#include "Box.h"
 
 #include <memory>
 
@@ -26,9 +26,9 @@ namespace Robotics
 		public:
 			virtual std::shared_ptr<DiscretizedArea> discretize() = 0;
 
-			virtual IDSReal2D randomPosition() const = 0;
+			virtual Real2D randomPosition() const = 0;
 
-			virtual bool isInside( IDSBox const& _box) const = 0;
+			virtual bool isInside( Box const& _box) const = 0;
 
 			virtual double getDistance() const = 0;
 		};

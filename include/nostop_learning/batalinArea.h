@@ -21,7 +21,7 @@
 
 #include <set>
 
-namespace IDS
+namespace 
 {
 	namespace BaseGeometry
 	{
