@@ -116,7 +116,8 @@ namespace Robotics
 				ACTIVE = 0,
 				DISABLE = 1,
 				STANDBY = 2,
-				WAKEUP = 3
+				WAKEUP = 3,
+				UNKNOWN = 4
 			}; 
 
 		protected:
