@@ -137,7 +137,7 @@ namespace Robotics
 			Agent(int _id, AgentPosition _position)
 				: m_id(_id)
 				, m_currentPosition(_position)
-				, m_status(ACTIVE)
+				, m_status(UNKNOWN)
 			{}
 
 			~Agent() {}
