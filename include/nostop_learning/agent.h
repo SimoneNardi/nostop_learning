@@ -111,7 +111,7 @@ namespace Robotics
 		class Agent : public std::enable_shared_from_this<Agent>
 		{
 		public: 
-			enum Status 
+			enum Status : int32_t
 			{
 				ACTIVE = 0,
 				DISABLE = 1,
