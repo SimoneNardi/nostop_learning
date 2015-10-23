@@ -195,7 +195,7 @@ std::vector<AreaCoordinate> CameraPosition::getCoverage(AreaCoordinate _center, 
 {
 	Real2D l_pt = _area->getPosition(_center);
 	std::shared_ptr<Shape2D> l_sensorArea = this->getVisibleArea(l_pt);
-	if(!l_sensorArea->isValid())
+	if(!l_sensorArea || !l_sensorArea->isValid())
 		return std::vector<AreaCoordinate>();
 
 	int l_rowDelta = int(floor(m_farRadius / _area->getYStep())) + 1;

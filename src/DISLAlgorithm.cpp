@@ -30,7 +30,7 @@ void DISLAlgorithm::updateWithoutMoving(std::shared_ptr<Guard> _agent)
 
 		//	ogni agente guardia estrae se sperimentare nuove azioni o no
 		bool l_agentHasToExperiments = agentHasToExperiments(l_explorationRate);
-		if(l_agentHasToExperiments)
+		if(l_agentHasToExperiments || _agent->notMovedYet())
 		{
 			_agent->startExperiment(l_explorationRate);
 		}

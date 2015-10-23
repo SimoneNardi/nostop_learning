@@ -136,6 +136,8 @@ namespace Robotics
 			AgentPosition getNextPosition(int _indexBest, int _indexNext);
 
 			void reset();
+			
+			bool notMovedYet() {return m_elems.empty();}
 		};
 
 		///////////////////////////////////////////////////////////
@@ -253,6 +255,8 @@ namespace Robotics
 			double computeBatteryCosts(std::shared_ptr<DiscretizedArea> _space);
 
 			void resetMemory();
+			
+			bool notMovedYet() {return m_memory.notMovedYet();}
 			
 		protected:
 			AgentPosition selectNextFeasiblePositionWithoutConstraint(std::shared_ptr<DiscretizedArea> _space);
