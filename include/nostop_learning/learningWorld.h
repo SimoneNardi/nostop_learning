@@ -13,7 +13,8 @@
 #include <thread>
 #include <mutex>
 
-struct A;
+//struct A;
+class Real2D;
 namespace Robotics 
 {
 	namespace GameTheory
@@ -95,6 +96,24 @@ namespace Robotics
 			
 			///
 			bool forwardOneStep();
+			
+			///
+			void addGuard();
+			
+			///
+			void addThief();
+			
+			///
+			void addSink();
+			
+			///
+			void getPlayersPosition(std::set<Real2D>&) const;
+			
+			///
+			void getThievesPosition(std::set<Real2D>&) const;
+			
+			///
+			int getNumberOfAgents() const;
 
 		protected:
 			/// Update guard position

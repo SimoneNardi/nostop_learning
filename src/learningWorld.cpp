@@ -263,3 +263,45 @@ bool LearningWorld::forwardOneStep()
 
 	return true;
 }
+
+///
+void LearningWorld::addGuard()
+{
+  // TODO
+  return;
+}
+			
+///
+void LearningWorld::addThief()
+{
+  //TODO
+  return;
+}
+			
+///
+void LearningWorld::addSink()
+{
+  //TODO
+  return;
+}
+
+///
+void LearningWorld::getPlayersPosition(std::set<Real2D>& r_agents_pos) const
+{
+  // TODO
+  return;
+}
+			
+///
+void LearningWorld::getThievesPosition(std::set<Real2D>& r_agents_pos) const
+{
+  // TODO
+  return;
+}
+
+///
+int LearningWorld::getNumberOfAgents() const
+{
+  // TODO
+  return 0;
+}
