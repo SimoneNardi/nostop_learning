@@ -39,10 +39,20 @@ void Agent::setCurrentPosition(AgentPosition const& pos)
 }
 
 //////////////////////////////////////////////////////////////////////////
+void Agent::setNextPosition(Real2D const& pos)
+{
+  Lock l_lock(m_mutex);
+  AgentPosition l_pos(pos, m_currentPosition.m_camera);
+  this->setNextPosition(l_pos);
+}
+
+//////////////////////////////////////////////////////////////////////////
 void Agent::setNextPosition(AgentPosition const& pos)
 {
   Lock l_lock(m_mutex);
-	m_nextPosition = pos;
+  m_isTargetUpdated = true;
+  m_nextPosition = pos;
+  m_status = Agent::ACTIVE;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -50,6 +60,21 @@ AgentPosition Agent::getCurrentPosition() const
 {
   Lock l_lock(m_mutex);
   return m_currentPosition;
+}
+
+//////////////////////////////////////////////////////////////////////////
+AgentPosition Agent::getNextPosition() const 
+{
+  Lock l_lock(m_mutex);
+  m_isTargetUpdated = false;
+  return m_nextPosition;
+}
+
+//////////////////////////////////////////////////////////////////////////
+bool Agent::isTargetUpdated() const
+{
+  Lock l_lock(m_mutex);
+  return m_isTargetUpdated;
 }
 
 //////////////////////////////////////////////////////////////////////////

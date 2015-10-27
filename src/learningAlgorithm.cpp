@@ -112,8 +112,11 @@ void LearningAlgorithm::compute(std::shared_ptr<Guard> _agent)
 		if(!l_square->isValid())
 			continue;
 		int l_nq = l_square->getTheNumberOfAgent();
-		double l_value = l_square->getThiefValue();
-		l_benefit += l_value / double(l_nq);
+		if (l_nq != 0)
+		{
+		  double l_value = l_square->getThiefValue();
+		  l_benefit += l_value / double(l_nq);
+		}
 	}
 	l_benefit -= _agent->computeCurrentCosts();
 

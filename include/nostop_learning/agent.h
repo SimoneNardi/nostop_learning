@@ -131,6 +131,8 @@ namespace Robotics
 			mutable Status m_status;
 			
 			mutable Mutex m_mutex;
+			
+			mutable bool m_isTargetUpdated;
 
 		public:
 
@@ -138,6 +140,7 @@ namespace Robotics
 				: m_id(_id)
 				, m_currentPosition(_position)
 				, m_status(UNKNOWN)
+				, m_isTargetUpdated(false)
 			{}
 
 			~Agent() {}
@@ -147,11 +150,19 @@ namespace Robotics
 			/// Get the position of the agent.
 			AgentPosition getCurrentPosition() const;
 			
+			/// Get the position of the agent.
+			AgentPosition getNextPosition() const;
+			
+			bool isTargetUpdated() const;
+			
 			/// Set Current Position
 			void setCurrentPosition(AgentPosition const& _pos);
 
 			/// Set Current Position
 			void setNextPosition(AgentPosition const& _pos);
+			
+			/// Set Next Position with current camera ctrl
+			void setNextPosition(Real2D const& pos);
 
 			/// True if the Agent is active, false otherwise.
 			bool isActive();

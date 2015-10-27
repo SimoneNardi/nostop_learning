@@ -41,6 +41,6 @@ void DISLAlgorithm::updateWithoutMoving(std::shared_ptr<Guard> _agent)
 	}
 
 	_agent->selectNextAction(m_space);
-
+	
 	return;
 }

@@ -211,7 +211,7 @@ void Guard::followBestTrajectory(double _explorationRate, bool best)
 ///
 void Guard::selectNextAction(std::shared_ptr<DiscretizedArea> _space)
 {
-  Lock l_lock(m_mutex);
+	Lock l_lock(m_mutex);
 	switch(m_exploring)
 	{
 	case -1:

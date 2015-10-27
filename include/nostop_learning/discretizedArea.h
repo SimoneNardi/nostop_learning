@@ -212,6 +212,10 @@ namespace Robotics
 			bool isThereASink() const {return !(m_sinkCoordinate.col < 0);}
 			std::vector<int> distanceFromNearestSink(std::vector<AgentPosition> const & _positions);
 			std::vector<int> distanceFromNearestSink(std::vector< std::pair<AgentPosition, int> > const & _positions);
+			
+			Box getBoundingBox() const;
+    
+			double getDistance() const;
 
 		protected:
 			void addEdges();

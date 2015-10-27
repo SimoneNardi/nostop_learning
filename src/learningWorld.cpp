@@ -40,7 +40,7 @@ LearningWorld::LearningWorld(
 	else 
 		throw std::exception();
 
-	l_learning->setExperimentalRate(0.1);
+	l_learning->setExperimentalRate(0.5);
 
 	this->setLearningAlgorithm(l_learning);
 }
@@ -68,7 +68,7 @@ LearningWorld::LearningWorld(
 	else 
 		throw std::exception();
 
-	l_learning->setExperimentalRate(0.1);
+	l_learning->setExperimentalRate(0.5);
 
 	this->setLearningAlgorithm(l_learning);
 }
@@ -265,21 +265,21 @@ bool LearningWorld::forwardOneStep()
 }
 
 ///
-void LearningWorld::addGuard()
+void LearningWorld::addGuard(std::shared_ptr<Agent> agent_)
 {
   // TODO
   return;
 }
 			
 ///
-void LearningWorld::addThief()
+void LearningWorld::addThief(std::shared_ptr<Agent> agent_)
 {
   //TODO
   return;
 }
 			
 ///
-void LearningWorld::addSink()
+void LearningWorld::addSink(std::shared_ptr<Agent> agent_)
 {
   //TODO
   return;
@@ -288,20 +288,33 @@ void LearningWorld::addSink()
 ///
 void LearningWorld::getPlayersPosition(std::set<Real2D>& r_agents_pos) const
 {
-  // TODO
+  auto l_guards = m_world->getGuards();
+  for(auto it = l_guards.begin(); it != l_guards.end(); ++it)
+  {
+    GuardPtr l_guard = *it;
+    AgentPosition l_pos = l_guard->getCurrentPosition();
+    r_agents_pos.insert( l_pos.getPoint2D() );
+  }
   return;
 }
 			
 ///
 void LearningWorld::getThievesPosition(std::set<Real2D>& r_agents_pos) const
 {
-  // TODO
+  auto l_thieves = m_world->getThieves();
+  for(auto it = l_thieves.begin(); it != l_thieves.end(); ++it)
+  {
+    ThiefPtr l_thief = *it;
+    AgentPosition l_pos = l_thief->getCurrentPosition();
+    r_agents_pos.insert( l_pos.getPoint2D() );
+  }
+  
   return;
 }
 
 ///
 int LearningWorld::getNumberOfAgents() const
 {
-  // TODO
-  return 0;
+  auto l_agents = m_world->getAgents();
+  return l_agents.size();
 }

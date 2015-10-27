@@ -837,6 +837,27 @@ std::vector<int> DiscretizedArea::distanceFromNearestSink(std::vector< std::pair
 	return result;
 }
 
+//////////////////////////////////////////////////////////////////////////
+Box DiscretizedArea::getBoundingBox() const
+{
+	Box l_res;
+	for(size_t i = 0; i < m_lattice.size(); ++i)
+	{
+		if ( m_lattice[i]->isValid() )
+		  l_res.extend( m_lattice[i]->getBoundingBox() );
+	}
+  
+	return l_res;
+}
+
+//////////////////////////////////////////////////////////////////////////
+double DiscretizedArea::getDistance() const
+{
+	Box l_res = this->getBoundingBox();
+	
+	return l_res.minCoord.distance(l_res.maxCoord);
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////

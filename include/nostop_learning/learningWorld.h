@@ -98,13 +98,13 @@ namespace Robotics
 			bool forwardOneStep();
 			
 			///
-			void addGuard();
+			void addGuard(std::shared_ptr<Agent> );
 			
 			///
-			void addThief();
+			void addThief(std::shared_ptr<Agent>);
 			
 			///
-			void addSink();
+			void addSink(std::shared_ptr<Agent>);
 			
 			///
 			void getPlayersPosition(std::set<Real2D>&) const;
