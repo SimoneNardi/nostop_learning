@@ -356,12 +356,12 @@ DiscretizedArea::DiscretizedArea(std::shared_ptr<StructuredArea> _area)
 	double l_xdist = l_bottomLeft.distance(l_bottomRight);
 	double l_ydist = l_bottomLeft.distance(l_topLeft);
 
-	m_xStep = l_xdist / double(DISCRETIZATION_COL);
-	m_yStep = l_ydist / double(DISCRETIZATION_ROW);
+	m_xStep = l_xdist / double(Robotics::GameTheory::DISCRETIZATION_COL);
+	m_yStep = l_ydist / double(Robotics::GameTheory::DISCRETIZATION_ROW);
 
 	m_listGraph = std::make_shared<lemon::ListGraph>();
-	m_listGraph->reserveNode(DISCRETIZATION_COL*DISCRETIZATION_ROW);
-	m_listGraph->reserveEdge( (DISCRETIZATION_COL-1)*(DISCRETIZATION_ROW-1)*4 );
+	m_listGraph->reserveNode(Robotics::GameTheory::DISCRETIZATION_COL*Robotics::GameTheory::DISCRETIZATION_ROW);
+	m_listGraph->reserveEdge( (Robotics::GameTheory::DISCRETIZATION_COL-1)*(Robotics::GameTheory::DISCRETIZATION_ROW-1)*4 );
 
 	double l_xpos = 0.;
 	double l_ypos = 0.;
@@ -444,8 +444,8 @@ DiscretizedArea::DiscretizedArea(Shape2D const& _external, std::set< Shape2D > c
 	m_yStep = l_ydist / double(DISCRETIZATION_ROW);
 
 	m_listGraph = std::make_shared<lemon::ListGraph>();
-	m_listGraph->reserveNode(DISCRETIZATION_COL*DISCRETIZATION_ROW);
-	m_listGraph->reserveEdge( (DISCRETIZATION_COL-1)*(DISCRETIZATION_ROW-1)*4);
+	m_listGraph->reserveNode(Robotics::GameTheory::DISCRETIZATION_COL*Robotics::GameTheory::DISCRETIZATION_ROW);
+	m_listGraph->reserveEdge( (Robotics::GameTheory::DISCRETIZATION_COL-1)*(Robotics::GameTheory::DISCRETIZATION_ROW-1)*4);
 
 	double l_xpos = 0.;
 	double l_ypos = 0.;
@@ -557,7 +557,7 @@ std::vector<AreaCoordinate> DiscretizedArea::getStandardApproachableValidSquares
 		if(this->getSquare(pos) && this->getSquare(pos)->isValid())
 			result.push_back(pos);
 	}
-	if(_current.col != DISCRETIZATION_COL)
+	if(_current.col != Robotics::GameTheory::DISCRETIZATION_COL)
 	{
 		AreaCoordinate pos(_current.col+1, _current.row);
 		if(this->getSquare(pos) && this->getSquare(pos)->isValid())
@@ -569,7 +569,7 @@ std::vector<AreaCoordinate> DiscretizedArea::getStandardApproachableValidSquares
 		if(this->getSquare(pos) && this->getSquare(pos)->isValid())
 			result.push_back(pos);
 	}
-	if(_current.row != DISCRETIZATION_ROW)
+	if(_current.row != Robotics::GameTheory::DISCRETIZATION_ROW)
 	{
 		AreaCoordinate pos(_current.col, _current.row+1);
 		if(this->getSquare(pos) && this->getSquare(pos)->isValid())
