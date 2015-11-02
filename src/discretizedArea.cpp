@@ -498,8 +498,8 @@ AreaCoordinate DiscretizedArea::getCoordinate(Real2D const& point) const
 	Real3D l_bottomRight = m_lattice[0]->getBoundingBox().corner(1);
 	Real3D l_topLeft = m_lattice[0]->getBoundingBox().corner(2);
 
-	Line2D l_vertical = Line2D(l_bottomLeft, l_bottomRight);
-	Line2D l_horizontal = Line2D(l_bottomLeft, l_topLeft);
+	Line2D l_horizontal = Line2D(l_bottomLeft, l_bottomRight);
+	Line2D l_vertical = Line2D(l_bottomLeft, l_topLeft);
 
 	Real2D l_prjVertical = l_vertical.projectPoint(point);
 	Real2D l_prjOrizontal = l_horizontal.projectPoint(point);
