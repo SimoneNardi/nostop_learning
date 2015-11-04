@@ -141,6 +141,7 @@ namespace Robotics
 				, m_currentPosition(_position)
 				, m_status(UNKNOWN)
 				, m_isTargetUpdated(false)
+				, m_nextPosition(_position)
 			{}
 
 			~Agent() {}
