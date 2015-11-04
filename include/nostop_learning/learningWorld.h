@@ -76,19 +76,19 @@ namespace Robotics
 			std::shared_ptr<World> getWorld() const;
 			
 			///
-			void getMonitorScreenShot(std::vector<int8_t> & monitorData_);
+			void getMonitorScreenShot(std::vector<double> & monitorData_);
 			
 			///
 			void updateMonitor(std::vector<int8_t> const& monitorData_);
 			
 			///
-			void getNeighboursScreeShot(std::vector<int8_t> & neighboursData_);
+			void getNeighboursScreeShot(std::vector<double> & neighboursData_);
 			
 			///
 			void updateNeighbours(std::vector<int8_t> const& neighboursData_);
 			
 			///
-			void getEnergyScreenShot(std::vector<int8_t> & energyData_);
+			void getEnergyScreenShot(std::vector<double> & energyData_);
 			
 			///
 			void updateEnergy(std::vector<int8_t> const& energyData_);

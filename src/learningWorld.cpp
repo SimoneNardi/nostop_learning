@@ -27,6 +27,12 @@ LearningWorld::LearningWorld(
 	, m_count(0)
 {
 	m_world = std::make_shared<World>(agent_, space_);
+	
+	for(auto it = agent_.begin(); it != agent_.end(); ++it)
+	{
+	  std::shared_ptr<Agent> l_agent = *it;
+	  std::shared_ptr<Guard> l_guard = l_agent->toGuard();
+	}
 
 	std::shared_ptr<LearningAlgorithm> l_learning = nullptr;
 	if(type_ == DISL)
@@ -175,7 +181,7 @@ std::shared_ptr<World> LearningWorld::getWorld() const
 }
 
 ///
-void LearningWorld::getEnergyScreenShot(std::vector<int8_t> & sinkData_)
+void LearningWorld::getEnergyScreenShot(std::vector<double> & sinkData_)
 {
     auto l_lattice = m_world->getSpace()->getLattice();
   sinkData_.resize(l_lattice.size());
@@ -196,13 +202,13 @@ void LearningWorld::updateEnergy(std::vector<int8_t> const& sinkData_)
 }
 
 ///
-void LearningWorld::getMonitorScreenShot(std::vector<int8_t> & monitorData_)
+void LearningWorld::getMonitorScreenShot(std::vector<double> & monitorData_)
 {
     auto l_lattice = m_world->getSpace()->getLattice();
   monitorData_.resize(l_lattice.size());
   for(auto i = 0; i < monitorData_.size(); ++i)
   {
-    monitorData_[i] = int8_t(l_lattice[i]->getThiefValue());
+    monitorData_[i] = l_lattice[i]->getThiefValue();
   }
 }
 
@@ -217,13 +223,13 @@ void LearningWorld::updateMonitor(std::vector<int8_t> const& monitorData_)
 }
 
 ///
-void LearningWorld::getNeighboursScreeShot(std::vector<int8_t> & neighboursData_)
+void LearningWorld::getNeighboursScreeShot(std::vector<double> & neighboursData_)
 {
   auto l_lattice = m_world->getSpace()->getLattice();
   neighboursData_.resize(l_lattice.size());
   for(auto i = 0; i < l_lattice.size(); ++i)
   {
-    neighboursData_[i] = int8_t(l_lattice[i]->getTheNumberOfAgent());
+    neighboursData_[i] = l_lattice[i]->getTheNumberOfAgent();
   }
 }
 
