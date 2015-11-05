@@ -27,12 +27,6 @@ LearningWorld::LearningWorld(
 	, m_count(0)
 {
 	m_world = std::make_shared<World>(agent_, space_);
-	
-	for(auto it = agent_.begin(); it != agent_.end(); ++it)
-	{
-	  std::shared_ptr<Agent> l_agent = *it;
-	  std::shared_ptr<Guard> l_guard = l_agent->toGuard();
-	}
 
 	std::shared_ptr<LearningAlgorithm> l_learning = nullptr;
 	if(type_ == DISL)

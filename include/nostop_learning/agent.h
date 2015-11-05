@@ -222,7 +222,7 @@ namespace Robotics
 		};
 
 		typedef std::shared_ptr<Agent> AgentPtr;
-
+		
 		class AgentActionIndex
 		{
 		public:
