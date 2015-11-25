@@ -26,6 +26,20 @@ StructuredArea::StructuredArea(std::vector<Real2D> const& points) : m_external(n
 }
 
 //////////////////////////////////////////////////////////////////////////
+StructuredArea::StructuredArea(std::vector<Real2D> const& points, std::vector< std::vector<Real2D> > const& obstacles)
+{
+  	m_external = std::make_shared<Polygon>(points);
+	
+	std::set< std::shared_ptr<Shape2D> > l_obstacles;
+	for(size_t i= 0; i < obstacles.size(); ++i)
+	{
+	  std::shared_ptr<Polygon> l_poly = std::make_shared<Polygon>(obstacles[i]);
+	  l_obstacles.insert(l_poly);
+	}
+	m_obstacles = l_obstacles;
+}
+
+//////////////////////////////////////////////////////////////////////////
 std::shared_ptr<DiscretizedArea> StructuredArea::discretize()
 {
 	std::shared_ptr<Area> l_area = this->shared_from_this();

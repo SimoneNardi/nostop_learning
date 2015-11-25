@@ -29,6 +29,9 @@ namespace Robotics
 		public:
 			/// Create an area without obstacles
 			StructuredArea(std::vector<Real2D> const& points);
+			
+			/// Create an area with obstacles
+			StructuredArea(std::vector<Real2D> const& points, std::vector< std::vector<Real2D> > const& obstacles);
 
 			/// Discretize the Area
 			virtual std::shared_ptr<DiscretizedArea> discretize();
