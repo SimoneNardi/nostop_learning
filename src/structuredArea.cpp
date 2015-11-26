@@ -57,6 +57,7 @@ Real2D StructuredArea::randomPosition() const
 
 	Real2D l_point;
 	int k = 0;
+	bool l_continue = false;
 	do
 	{
 		int xSecret = rand() % DISCRETIZATION_COL;
@@ -83,8 +84,14 @@ Real2D StructuredArea::randomPosition() const
 		Line2D l_yline (l_bottom,l_top);
 		l_point = l_yline.pointFromOrigin( l_ystep * double(ySecret) );
 		++k;
+		
+		l_continue = !m_external->contains(l_point) /*&& k < N_MAX*/;
+		for(auto it = m_obstacles.begin(); it != m_obstacles.end() && !l_continue; ++it)
+		{
+		    l_continue = (*it)->contains(l_point);
+		}
 	} 
-	while (!m_external->contains(l_point) && k < N_MAX);
+	while (l_continue);
 
 	return l_point;
 }
