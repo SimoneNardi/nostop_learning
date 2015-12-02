@@ -23,6 +23,7 @@ Guard::Guard( int _teamID, int _id, AgentPosition _position, int _trajectoryLeng
 	, m_current_battery(MAXIMUM_BATTERY)
 	, m_minimum_battery(MINIMUM_BATTERY)
 	, m_maximum_battery(MAXIMUM_BATTERY)
+	, m_exploring(0)
 {}
 
 Guard::~Guard()
