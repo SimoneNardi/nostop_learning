@@ -23,7 +23,7 @@ Guard::Guard( int _teamID, int _id, AgentPosition _position, int _trajectoryLeng
 	, m_current_battery(MAXIMUM_BATTERY)
 	, m_minimum_battery(MINIMUM_BATTERY)
 	, m_maximum_battery(MAXIMUM_BATTERY)
-	, m_exploring(0)
+	, m_exploring(-1)
 {}
 
 Guard::~Guard()
@@ -185,7 +185,7 @@ void Guard::reset(double _explorationRate)
 	m_oldCoverage = m_coverage;
 	m_coverage.clear();
 
-	int l_period = computePeriod();
+	int l_period = m_maxTrajectoryLength; //computePeriod();
 	if(l_period != m_maxTrajectoryLength)
 	{
 		resetMemory();
